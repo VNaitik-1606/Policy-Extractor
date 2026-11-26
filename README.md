@@ -1,6 +1,6 @@
 # Policy Extractor
 
-A local-first Chrome extension for extracting, reviewing, and managing policy-related data from web portals.
+A local-first Chrome/Chromium extension for extracting, reviewing, and managing policy-related data from web portals.
 
 ## About
 
