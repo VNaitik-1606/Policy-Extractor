@@ -1,6 +1,14 @@
 # Policy Extractor
 
-A local-first Chrome extension for a single authorized user. It extracts selected fields from policy pages on your company portal, lets you review and correct the values, and saves records locally. No data ever leaves your device.
+A local-first Chrome extension for extracting, reviewing, and managing policy-related data from web portals.
+
+## About
+
+Policy Extractor started as a side project around a fairly niche problem I wanted to solve. What began as a small idea gradually grew into an application with extraction, validation, record management, backups, and export functionality.
+
+I built the project with the help of agentic AI throughout the development process, using it as part of the iterative workflow for planning, implementation, testing, debugging, and refinement.
+
+The original use case is niche, but I think the underlying implementation could be adapted to a much wider range of portals and structured-data workflows and there's plenty of room to expand and improve it.
 
 ---
 
