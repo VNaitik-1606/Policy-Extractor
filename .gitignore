@@ -1,0 +1,5 @@
+tests/
+node_modules/
+tailwind.config.js
+vite.config.js
+dist/src/content/
