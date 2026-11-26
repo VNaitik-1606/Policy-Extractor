@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Sensible focus ring for keyboard navigation */
+:focus-visible {
+  @apply outline outline-2 outline-offset-2 outline-blue-600;
+}
+
+/* Print: hide all UI chrome */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}

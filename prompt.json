@@ -1,0 +1,130 @@
+{
+  "project_name": "Policy Extractor",
+  "role": "Act as a senior software engineer and product designer building a secure, local-first Chrome extension for a single user.",
+  "objective": "Build a Chrome extension that helps an authorized user extract selected policy information from the company portal they already use, review and correct the fields, save records locally, and export them to Excel, JSON, and a standardized printable PDF.",
+  "context": {
+    "user": "The primary user is not highly technical and currently reads policy documents on the company portal and manually writes selected details onto paper.",
+    "workflow_goal": "Reduce repetitive transcription without changing the user's normal portal workflow.",
+    "constraints": [
+      "Single-user application",
+      "Local-first storage",
+      "No cloud backend initially",
+      "No external AI or OCR API that sends policy data off-device",
+      "Operate only on pages and documents the user is authorized to access",
+      "Do not bypass authentication, access controls, anti-bot mechanisms, or portal restrictions"
+    ]
+  },
+  "preferred_stack": {
+    "extension": "Chrome Extension Manifest V3",
+    "ui": "React",
+    "styling": "Tailwind CSS",
+    "language": "JavaScript unless TypeScript provides a clear benefit",
+    "storage": "IndexedDB with Dexie.js",
+    "pdf_text_extraction": "PDF.js when needed and where authorized",
+    "excel_export": "SheetJS",
+    "print_output": "HTML/CSS print templates; optionally a suitable PDF library",
+    "build_tool": "Vite"
+  },
+  "features": [
+    {
+      "name": "Portal extraction",
+      "requirements": [
+        "Build a content script limited to user-approved portal domains.",
+        "Extract only explicitly configured fields from the page's accessible DOM or authorized text documents.",
+        "Do not scrape unrelated page content or hidden sensitive data.",
+        "Support a clear manual extraction action rather than silently collecting data.",
+        "Treat page content as untrusted input."
+      ]
+    },
+    {
+      "name": "Review before saving",
+      "requirements": [
+        "Show extracted fields in an editable form.",
+        "Highlight missing, uncertain, or malformed values.",
+        "Require user confirmation before saving a record.",
+        "Allow the user to discard extraction results."
+      ]
+    },
+    {
+      "name": "Local record management",
+      "requirements": [
+        "Store records in IndexedDB.",
+        "Support search, sorting, filtering, editing and deletion.",
+        "Allow selecting records for export.",
+        "Use a stable record identifier and timestamps.",
+        "Avoid retaining original policy content unless explicitly required and configured."
+      ]
+    },
+    {
+      "name": "Exports",
+      "requirements": [
+        "Export selected or all records to JSON.",
+        "Export selected or all records to XLSX.",
+        "Generate a configurable print-ready PDF or browser print layout.",
+        "Support the desired paper layout after the user supplies a sample or field list.",
+        "Ensure export templates do not accidentally include fields not selected for output."
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "requirements": [
+        "Create a full dashboard page, not an oversized extension popup.",
+        "Provide record counts, search, filtering, edit, delete and export actions.",
+        "Use a simple, accessible UI suitable for a nontechnical user.",
+        "Include clear empty states, confirmation dialogs for destructive actions and status feedback."
+      ]
+    },
+    {
+      "name": "Backup and recovery",
+      "requirements": [
+        "Provide JSON backup and restore.",
+        "Validate backups before importing.",
+        "Prevent accidental duplicate imports or explain duplicate handling.",
+        "Never silently overwrite the user's records."
+      ]
+    }
+  ],
+  "implementation_plan": [
+    "Inspect the repository and summarize its existing structure before changing files.",
+    "Read agent.md and security.md before implementation.",
+    "Identify portal-specific extraction requirements, but do not assume the portal DOM or fields; create a configurable extraction adapter and use placeholder selectors until details are supplied.",
+    "Define the record schema and storage layer.",
+    "Implement the Manifest V3 extension skeleton, permission-minimal manifest, popup and dashboard.",
+    "Implement extraction with a manual trigger and editable review step.",
+    "Implement local record management.",
+    "Implement JSON and Excel exports.",
+    "Implement a configurable printable template and PDF/print workflow.",
+    "Implement backup and restore.",
+    "Add tests for extraction mapping, schema validation, storage, export and security-sensitive behavior.",
+    "Run tests and lint/build checks, report their results, and document local installation through chrome://extensions using Load unpacked."
+  ],
+  "design_guidance": {
+    "visual_style": "Clean, restrained, readable, desktop-first dashboard with a compact extension popup.",
+    "usability": [
+      "Use straightforward labels rather than technical jargon.",
+      "Minimize clicks for the primary extract-review-save flow.",
+      "Make errors and missing fields visible.",
+      "Use keyboard-accessible controls.",
+      "Do not add decorative features that interfere with the core workflow."
+    ]
+  },
+  "deliverables": [
+    "Working extension source code",
+    "Dashboard",
+    "Record schema and local storage",
+    "JSON and Excel exports",
+    "Printable template",
+    "Backup and restore",
+    "Tests",
+    "README with setup, installation, usage, and limitations"
+  ],
+  "agent_instructions": [
+    "Work incrementally and inspect existing files before replacing anything.",
+    "Do not invent selectors for the company portal. Use placeholders until a representative authorized page structure is provided.",
+    "Do not make the extraction flow dependent on an external API.",
+    "Do not claim extraction is accurate without testing against representative examples.",
+    "Keep the code maintainable and avoid unnecessary abstractions or dependencies.",
+    "If a portal-specific implementation would require bypassing security controls or violate the portal's policies, stop that part and propose an authorized alternative.",
+    "Summarize files changed, tests run, limitations, and next steps after each major milestone."
+  ]
+}
